@@ -1,4 +1,3 @@
-context("Mean of model")
 
 test_that("Checking mean errors",{
   

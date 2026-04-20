@@ -1,4 +1,3 @@
-context("Adult bmi function")
 
 test_that("Checking adult_bmi errors",{
   W <-adult_weight(bw = c(76, 58, 65), ht = c(1.73, 1.64, 1.65), 

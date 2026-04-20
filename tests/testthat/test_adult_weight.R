@@ -1,4 +1,3 @@
-context("Adult weight change function")
 
 test_that("Checking adult_weight  errors",{
   
