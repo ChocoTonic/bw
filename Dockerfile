@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN Rscript -e "\
-  pkgs <- c('Rcpp', 'ggplot2', 'gridExtra', 'reshape2', 'survey', 'testthat', 'knitr'); \
+  pkgs <- c('Rcpp', 'ggplot2', 'gridExtra', 'reshape2', 'survey', 'testthat', 'knitr', 'jsonlite'); \
   install.packages(pkgs, repos='https://cloud.r-project.org', Ncpus=4L); \
   missing <- pkgs[!sapply(pkgs, requireNamespace, quietly = TRUE)]; \
   if (length(missing)) stop('Failed to install: ', paste(missing, collapse = ', ')) \
