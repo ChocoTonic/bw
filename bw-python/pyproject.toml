@@ -20,4 +20,8 @@ build-backend = "setuptools.build_meta"
 [dependency-groups]
 dev = [
     "pytest>=9.0.3",
+    "pytest-xdist>=3.5",
 ]
+
+[tool.pytest.ini_options]
+addopts = "-n auto"

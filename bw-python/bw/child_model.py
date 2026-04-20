@@ -340,7 +340,8 @@ class Child:
         dict with keys: Time, Age, Fat_Free_Mass, Fat_Mass, Body_Weight,
                         Correct_Values, Model_Type
         """
-        nsims = int(math.floor(days / self.dt))
+        # R wrapper calls rk4(days-1) to account for C++/R indexing difference
+        nsims = int(math.floor((days - 1) / self.dt))
         dt = self.dt
 
         # Storage: (nind, nsims+1)

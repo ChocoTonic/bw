@@ -74,7 +74,7 @@ class TestChildWeightMale:
         result = child_weight(6.0, "male", days=365, dt=1.0)
         bw = result["Body_Weight"]
         assert bw.shape[0] == 1  # 1 individual
-        assert bw.shape[1] == 366  # 365 days + initial
+        assert bw.shape[1] == 365  # matches R: rk4(days-1)
         # Body weight should increase over a year for a growing child
         assert bw[0, -1] > bw[0, 0]
 
@@ -134,7 +134,7 @@ class TestRichardsonParams:
         rp = {"K": 2000.0, "Q": 1.0, "A": 1000.0, "B": 0.5, "nu": 1.0, "C": 1.0}
         result = child_weight(6.0, "male", days=100, richardson_params=rp)
         bw = result["Body_Weight"]
-        assert bw.shape == (1, 101)
+        assert bw.shape == (1, 100)
         # Should produce finite values
         assert np.all(np.isfinite(bw))
 
@@ -153,15 +153,15 @@ class TestVectorized:
 
     def test_two_individuals(self):
         result = child_weight([6.0, 10.0], ["male", "female"], days=100)
-        assert result["Body_Weight"].shape == (2, 101)
-        assert result["Age"].shape == (2, 101)
+        assert result["Body_Weight"].shape == (2, 100)
+        assert result["Age"].shape == (2, 100)
         # Both should grow
         assert result["Body_Weight"][0, -1] > result["Body_Weight"][0, 0]
         assert result["Body_Weight"][1, -1] > result["Body_Weight"][1, 0]
 
     def test_three_males(self):
         result = child_weight([4.0, 8.0, 12.0], ["male", "male", "male"], days=50)
-        assert result["Body_Weight"].shape == (3, 51)
+        assert result["Body_Weight"].shape == (3, 50)
         # Older children should have higher initial body weight
         assert result["Body_Weight"][2, 0] > result["Body_Weight"][1, 0]
         assert result["Body_Weight"][1, 0] > result["Body_Weight"][0, 0]
@@ -169,7 +169,7 @@ class TestVectorized:
     def test_numeric_sex(self):
         """Test that numeric sex codes (0/1) work."""
         result = child_weight([6.0, 10.0], [0, 1], days=30)
-        assert result["Body_Weight"].shape == (2, 31)
+        assert result["Body_Weight"].shape == (2, 30)
 
 
 # ---------------------------------------------------------------------------
@@ -214,5 +214,5 @@ class TestDtParameter:
     def test_half_day_step(self):
         result = child_weight(6.0, "male", days=30, dt=0.5)
         # With dt=0.5, nsims = 60, so shape is (1, 61)
-        assert result["Body_Weight"].shape == (1, 61)
+        assert result["Body_Weight"].shape == (1, 59)  # floor((30-1)/0.5) + 1
         assert np.all(np.isfinite(result["Body_Weight"]))

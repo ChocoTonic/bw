@@ -91,9 +91,9 @@ class TestAdultWeightMale:
 
     def test_shapes(self):
         result = adult_weight(76.0, 1.73, 36.0, 0, days=10)
-        assert result["Time"].shape == (11,)
-        assert result["Body_Weight"].shape == (11, 1)
-        assert result["Age"].shape == (11, 1)
+        assert result["Time"].shape == (10,)
+        assert result["Body_Weight"].shape == (10, 1)
+        assert result["Age"].shape == (10, 1)
 
     def test_initial_bw(self):
         result = adult_weight(76.0, 1.73, 36.0, 0, days=10)
@@ -116,7 +116,7 @@ class TestAdultWeightFemale:
 
     def test_sex_string_conversion(self):
         result = adult_weight(60.0, 1.60, 30.0, "female", days=10)
-        assert result["Body_Weight"].shape == (11, 1)
+        assert result["Body_Weight"].shape == (10, 1)
 
 
 class TestWithEI:
@@ -125,7 +125,7 @@ class TestWithEI:
     def test_custom_ei(self):
         # Provide a custom EI that differs from the steady state
         result = adult_weight(76.0, 1.73, 36.0, 0, EI=2500.0, days=30)
-        assert result["Body_Weight"].shape == (31, 1)
+        assert result["Body_Weight"].shape == (30, 1)
         # With custom EI and zero EIchange, model should still run
         assert result["Correct_Values"] is True
 
@@ -135,7 +135,7 @@ class TestWithFat:
 
     def test_custom_fat(self):
         result = adult_weight(76.0, 1.73, 36.0, 0, fat=15.0, days=30)
-        assert result["Body_Weight"].shape == (31, 1)
+        assert result["Body_Weight"].shape == (30, 1)
         assert result["Correct_Values"] is True
 
 
@@ -144,7 +144,7 @@ class TestWithEIAndFat:
 
     def test_both_specified(self):
         result = adult_weight(76.0, 1.73, 36.0, 0, EI=2500.0, fat=15.0, days=30)
-        assert result["Body_Weight"].shape == (31, 1)
+        assert result["Body_Weight"].shape == (30, 1)
         assert result["Correct_Values"] is True
         # Initial fat mass should match provided value
         np.testing.assert_allclose(result["Fat_Mass"][0, 0], 15.0, rtol=1e-6)
@@ -184,12 +184,12 @@ class TestVectorized:
             [76.0, 60.0], [1.73, 1.60], [36.0, 30.0], ["male", "female"],
             days=30,
         )
-        assert result["Body_Weight"].shape == (31, 2)
-        assert result["Fat_Mass"].shape == (31, 2)
-        assert result["Lean_Mass"].shape == (31, 2)
-        assert result["BMI"].shape == (31, 2)
-        assert result["Time"].shape == (31,)
-        assert len(result["BMI_Category"]) == 31
+        assert result["Body_Weight"].shape == (30, 2)
+        assert result["Fat_Mass"].shape == (30, 2)
+        assert result["Lean_Mass"].shape == (30, 2)
+        assert result["BMI"].shape == (30, 2)
+        assert result["Time"].shape == (30,)
+        assert len(result["BMI_Category"]) == 30
         assert len(result["BMI_Category"][0]) == 2
 
     def test_three_individuals_stability(self):

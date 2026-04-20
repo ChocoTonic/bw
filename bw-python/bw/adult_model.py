@@ -387,13 +387,15 @@ def adult_weight(bw, ht, age, sex, *, EIchange=None, NAchange=None,
             pcarb = np.full(nind, pcarb[0])
 
     # Default EIchange / NAchange
-    nsteps = int(math.ceil(days / dt)) + 1
+    # Match R: ncol = ceiling(days/dt), transposed to nrow for C++
+    nsteps_ei = int(math.ceil(days / dt))
     if EIchange is None:
-        EIchange = np.zeros((nsteps, nind))
+        EIchange = np.zeros((nsteps_ei, nind))
     else:
         EIchange = np.asarray(EIchange, dtype=float)
     if NAchange is None:
-        NAchange = np.zeros((nsteps, nind))
+        # Match EIchange dimensions (R requires same dimensions)
+        NAchange = np.zeros_like(EIchange)
     else:
         NAchange = np.asarray(NAchange, dtype=float)
 
