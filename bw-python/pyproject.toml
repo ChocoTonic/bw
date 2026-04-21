@@ -1,0 +1,27 @@
+[project]
+name = "bw"
+version = "0.1.0"
+description = "Dynamic body weight change models (Hall et al.)"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+    "pandas>=2.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-xdist>=3.5",
+]
+
+[tool.pytest.ini_options]
+addopts = "-n auto"

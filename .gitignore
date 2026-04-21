@@ -1,0 +1,12 @@
+src/*.o
+src/*.so
+src/*.dll
+.Rhistory
+.RData
+.Rproj.user
+*.egg-info/
+__pycache__/
+CLAUDE.md
+.claude/
+.beads/
+.runtime/

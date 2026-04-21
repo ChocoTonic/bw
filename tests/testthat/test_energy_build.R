@@ -1,4 +1,3 @@
-context("Energy build function")
 
 test_that("Checking energy_build  errors",{
   

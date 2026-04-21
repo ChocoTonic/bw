@@ -1,4 +1,3 @@
-context("Plotting of model")
 
 test_that("Checking plot errors",{
   
@@ -79,37 +78,37 @@ test_that("Test plot object",{
   
   #Check plot labels for adult model
   expect_true({
-    
+
     #Check that xlab and ylab match
     boolvec <- c()
     for (timevar in c("Time","Age")){
-      for (var in c("Adaptive_Thermogenesis", "Extracellular_Fluid","Glycogen", 
+      for (var in c("Adaptive_Thermogenesis", "Extracellular_Fluid","Glycogen",
                     "Fat_Mass", "Lean_Mass", "Body_Weight", "Body_Mass_Index")){
-        myplot <- model_plot(adult_weight(80,180,22,"male", days = 3), var, timevar = timevar)    
+        myplot <- model_plot(adult_weight(80,180,22,"male", days = 3), var, timevar = timevar)
         boolvec <- c(boolvec, all(c(myplot$labels$x == timevar, myplot$labels$y == gsub("_", " ", var))))
       }
     }
-    
+
     all(boolvec)
-    
+
   })
   
   #Check plot labels for child model
   expect_true({
-    
+
     #Check that xlab and ylab match
     boolvec <- c()
     for (timevar in c("Time","Age")){
       for (var in c("Fat_Mass", "Fat_Free_Mass", "Body_Weight")){
-        myplot <- model_plot(child_weight(7,"male", days = 3), var, timevar = timevar, title = "Title")    
-        boolvec <- c(boolvec, all(c(myplot$labels$x == timevar, 
-                                    myplot$labels$title == "Title", 
+        myplot <- model_plot(child_weight(7,"male", days = 3), var, timevar = timevar, title = "Title")
+        boolvec <- c(boolvec, all(c(myplot$labels$x == timevar,
+                                    myplot$labels$title == "Title",
                                     myplot$labels$y == gsub("_", " ", var))))
       }
     }
-    
+
     all(boolvec)
-    
+
   })
   
   #Check ncol for child model
