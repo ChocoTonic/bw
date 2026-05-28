@@ -35,7 +35,7 @@ The lean-mass right-hand-side helper `Adult::R()` sums several terms that must a
 | **Before fix:** `dG(t, G)`    | `dG/dt`                              | **kg/day** ← inconsistent         |
 | **After fix:** `roG*dG(t, G)` | `ρ_G · dG/dt`                        | kcal/kg · kg/day = **kcal/day** ✓ |
 
-`dG(t, G)` is defined at [`src/adult_weight.cpp:315-317`](../src/adult_weight.cpp#L315-L317):
+`dG(t, G)` is defined at [`src/adult_weight.cpp:315-317`](https://github.com/ChocoTonic/bw/blob/fix/glycogen-energy-flux-units/src/adult_weight.cpp#L315-L317):
 
 ```cpp
 NumericVector Adult::dG(double t, NumericVector G){
@@ -93,7 +93,7 @@ Constants used in the code, traceable to the appendix:
 
 | Symbol                   | Paper value   | Code (`src/adult_weight.cpp`) | Notes                                                                |
 | ------------------------ | ------------- | ----------------------------- | -------------------------------------------------------------------- |
-| ρ_G                      | 17.6 MJ/kg    | `roG = 4206.501`              | [line 235](../src/adult_weight.cpp#L235), kJ→kcal × 0.23900573614    |
-| ρ_F                      | 39.5 MJ/kg    | `roF = 9440.727`              | [line 239](../src/adult_weight.cpp#L239)                             |
+| ρ_G                      | 17.6 MJ/kg    | `roG = 4206.501`              | [line 235](https://github.com/ChocoTonic/bw/blob/fix/glycogen-energy-flux-units/src/adult_weight.cpp#L235), kJ→kcal × 0.23900573614    |
+| ρ_F                      | 39.5 MJ/kg    | `roF = 9440.727`              | [line 239](https://github.com/ChocoTonic/bw/blob/fix/glycogen-energy-flux-units/src/adult_weight.cpp#L239)                             |
 | ρ_L                      | 7.6 MJ/kg     | `roL`                         | initialized similarly                                                |
-| 2.7 g water / g glycogen | appendix p. 1 | `weight += 3.7*G`             | [line 373](../src/adult_weight.cpp#L373), 1 g glycogen + 2.7 g water |
+| 2.7 g water / g glycogen | appendix p. 1 | `weight += 3.7*G`             | [line 373](https://github.com/ChocoTonic/bw/blob/fix/glycogen-energy-flux-units/src/adult_weight.cpp#L373), 1 g glycogen + 2.7 g water |
